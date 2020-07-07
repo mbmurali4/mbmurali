@@ -1,3 +1,15 @@
+/*
+Tester Name# BalaMurali M
+
+Test Description : To Verify whether application allows the admin to delete Returned product details from Product Return list
+
+Pre Condition : 
+1. user should launch the application by entering valid URL
+2. Login as admin  
+
+Test case number : UNF_019
+*/
+
 package com.training.pom;
 
 import static org.testng.Assert.assertSame;
@@ -107,16 +119,15 @@ public class DeletePOM {
 		act.moveToElement(deletebtn).click().build().perform();
 		Thread.sleep(3000);
 		
-		// Switching to Alert        
+		//Switching to Alert        
         Alert alert = driver.switchTo().alert();
         
-     // Accepting alert		
+        //Accepting alert		
         alert.accept();	
 		
 		//Step 5 : Check for Success message after product deletion
-        WebElement expectedResult = driver.findElement(By.xpath("//*[contains(text(),'Success: You have modified returns!')]"));
 		WebElement actualResult=driver.findElement(By.xpath("//*[contains(text(),'Success: You have modified returns!')]"));
-		assertEquals(actualResult,expectedResult);
+
 						
 	}
 		

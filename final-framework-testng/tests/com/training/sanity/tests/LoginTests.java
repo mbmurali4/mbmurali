@@ -38,8 +38,7 @@ public class LoginTests {
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
-		
-		
+				
 	}
 	
 	@AfterMethod

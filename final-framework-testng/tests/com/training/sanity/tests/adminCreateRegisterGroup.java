@@ -1,13 +1,12 @@
-/*
-Tester Name# BalaMurali M
+/*Test Objective : To verify whether application allows admin to create a group & register new user to the group
 
-Test Description : To Verify whether application allows the admin to delete Customer details from Customer list
 
 Pre Condition : 
-1. user should launch the application by entering valid URL
-2. Login as admin  
+1. user should have launched the application & placed the order
+2. admin should launch the application by entering valid URL
+3. Login as admin  
 
-Test case number : UNF_021
+Test case : UNF_051
 */
 
 package com.training.sanity.tests;
@@ -23,15 +22,18 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.CustomerDeletePOM;
+import com.training.pom.FilterCustomerPOM;
+import com.training.pom.LoginPOM;
+import com.training.pom.adminCreateRegisterGroupPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class deleteCustomerList { 
-
+@Test
+public class adminCreateRegisterGroup {
+	
 	private WebDriver driver;
 	private String baseUrl;
-	private CustomerDeletePOM customerdeletePOM;
+	private adminCreateRegisterGroupPOM groupRegisterPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 	
@@ -40,18 +42,19 @@ public class deleteCustomerList {
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
-		
-}
-	
-	@BeforeMethod
+	}
 
+
+	@BeforeMethod
+	
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		customerdeletePOM = new CustomerDeletePOM(driver);
+		groupRegisterPOM = new adminCreateRegisterGroupPOM(driver); 
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
 		driver.get(baseUrl);
+				
 	}
 	
 	@AfterMethod
@@ -60,15 +63,24 @@ public class deleteCustomerList {
 		Thread.sleep(1000);
 		driver.quit();
 	}
-	@Test
-	public void validLoginTest() throws InterruptedException {
-		customerdeletePOM.sendUserName("admin");
-		customerdeletePOM.sendPassword("admin@123");
-		customerdeletePOM.clickLoginBtn(); 
-		customerdeletePOM.clickOnCustomer();
-	 	screenShot.captureScreenShot("Cust1");
+	
+public void LoginTest() throws InterruptedException {
+		
+		//Send admin field  value 
+		groupRegisterPOM.sendUserName("admin");
+		
+		//Send the password field value 
+		groupRegisterPOM.sendPassword("admin@123");
+		
+		//Click on the Login button
+		groupRegisterPOM.clickLoginBtn(); 
+		
+		//click on the Customers
+		groupRegisterPOM.createRegisterGroup();
+		
+					
+	
 	}
 
-	
 
 }

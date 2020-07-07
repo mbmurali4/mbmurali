@@ -1,39 +1,43 @@
 /*
+
 Tester Name# BalaMurali M
 
-Test Description : To Verify whether application allows the admin to delete Returned product details from Product Return list
+Test Description : To verify whether application allows admins to return product of customer & delete from return list
 
 Pre Condition : 
-1. user should launch the application by entering valid URL
-2. Login as admin  
+1. user should have launched the application & placed the order
+2. admin should launch the application by entering valid URL
+3. Login as admin
+4. User should have placed order
 
-Test case number : UNF_019
+
+Test case number : UNF_049
+
+
 */
+
 package com.training.sanity.tests;
 
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeClass;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.DeletePOM;
+import com.training.pom.adminReturnDeletePOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class deleteReturnedProduct {
-
+public class adminReturnDelete {
+	
 	private WebDriver driver;
 	private String baseUrl;
-	private DeletePOM deletePOM;
+	private adminReturnDeletePOM adminPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 	
@@ -49,7 +53,7 @@ public class deleteReturnedProduct {
 
 public void setUp() throws Exception {
 	driver = DriverFactory.getDriver(DriverNames.CHROME);
-	deletePOM = new DeletePOM(driver); 
+	adminPOM = new adminReturnDeletePOM(driver); 
 	baseUrl = properties.getProperty("baseURL");
 	screenShot = new ScreenShot(driver); 
 	// open the browser 
@@ -61,25 +65,29 @@ public void setUp() throws Exception {
 
 public void tearDown() throws Exception {
 	Thread.sleep(1000);
-	driver.quit();
+	//driver.quit();
 }
 @Test
 public void validLoginTest() throws InterruptedException {
-	deletePOM.sendUserName("admin");
-	deletePOM.sendPassword("admin@123");
-	deletePOM.clickLoginBtn(); 
-	deletePOM.clickReturns();
+	//Send Login field value 
+	adminPOM.sendUserName("admin");
 	
+	//Send Password field value 
+	adminPOM.sendPassword("admin@123");
 	
-	//Check for Success message after product deletion
+	//Click on the Login button
+	adminPOM.clickLoginBtn(); 
 	
-	WebElement actualResult=driver.findElement(By.xpath("//*[contains(text(),'Success: You have modified returns!')]"));
-	Assert.assertFalse(actualResult.getText().equals("Success: You have modified returns!"));
-	
-	screenShot.captureScreenShot("DeleteSuccessmsg");
+	//Create a new record and delete  
+	adminPOM.cartSelection();
+ 
+	//Screencapture the results
+	screenShot.captureScreenShot("adminReturn");
 }
 
-
 }
-	
+		
+
+
+
 

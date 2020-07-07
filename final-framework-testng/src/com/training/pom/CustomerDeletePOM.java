@@ -1,3 +1,16 @@
+/*
+Tester Name# BalaMurali M
+
+Test Description : To Verify whether application allows the admin to delete Customer details from Customer list
+
+Pre Condition : 
+1. user should launch the application by entering valid URL
+2. Login as admin  
+
+Test case number : UNF_021
+*/
+
+
 package com.training.pom;
 
 import static org.testng.AssertJUnit.assertEquals;
@@ -72,11 +85,9 @@ public class CustomerDeletePOM {
 					
 		// Step 3. Click on Check box of the customer to delete
 		
-		
-		
 		JavascriptExecutor js = (JavascriptExecutor) driver; 
 		
-		//Scroll window to select checkbox
+		//Scroll window to select check boxes
      	     
 		js.executeScript("arguments[0].scrollIntoView();", chekBox);
 		
@@ -85,11 +96,10 @@ public class CustomerDeletePOM {
 		act.moveToElement(chekBox).click().build().perform();
 		Thread.sleep(3000);
 		
-				
-		JavascriptExecutor jsdeletebtn = (JavascriptExecutor) driver; 
+		//Step 4: Scroll window to  find  delete button 
 		
-		//Scroll window to  find  delete button 
-	     
+		JavascriptExecutor jsdeletebtn = (JavascriptExecutor) driver; 
+			     
 		jsdeletebtn.executeScript("arguments[0].scrollIntoView();", deletebtn);
 		
 		
@@ -97,14 +107,14 @@ public class CustomerDeletePOM {
 		act.moveToElement(deletebtn).click().build().perform();
 		Thread.sleep(3000);
 		
-		// Switching to Alert        
+		//Switching to Alert        
         Alert alert = driver.switchTo().alert();
         
-     // Accepting alert		
+        //Accepting alert		
         alert.accept();	
 		
         
-		 //5. Click on Ok button of window
+		 //Step 5. Click on Ok button of window
 	
         WebElement expectedResult = driver.findElement(By.xpath("//div[@class='alert alert-success']"));
 		WebElement actualResult=driver.findElement(By.xpath("//div[@class='alert alert-success']"));

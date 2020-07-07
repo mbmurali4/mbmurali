@@ -1,14 +1,17 @@
 /*
-Tester Name# BalaMurali M
 
-Test Description : To Verify whether application allows the admin to delete Customer details from Customer list
+Test Objective : To verify whether application allows admin to edit Customer details & add reward points
+
 
 Pre Condition : 
-1. user should launch the application by entering valid URL
-2. Login as admin  
+1. user should have launched the application & placed the order
+2. admin should launch the application by entering valid URL
+3. Login as admin
+4. User should have placed order  
 
-Test case number : UNF_021
+Test case : UNF_050
 */
+
 
 package com.training.sanity.tests;
 
@@ -23,15 +26,17 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.training.generics.ScreenShot;
-import com.training.pom.CustomerDeletePOM;
+import com.training.pom.FilterCustomerPOM;
+import com.training.pom.adminEditDetailsAddRewardPOM;
 import com.training.utility.DriverFactory;
 import com.training.utility.DriverNames;
 
-public class deleteCustomerList { 
-
+@Test
+public class adminEditDetailsAddReward {
+	
 	private WebDriver driver;
 	private String baseUrl;
-	private CustomerDeletePOM customerdeletePOM;
+	private adminEditDetailsAddRewardPOM addrewardPOM;
 	private static Properties properties;
 	private ScreenShot screenShot;
 	
@@ -42,12 +47,12 @@ public class deleteCustomerList {
 		properties.load(inStream);
 		
 }
-	
+
 	@BeforeMethod
 
 	public void setUp() throws Exception {
 		driver = DriverFactory.getDriver(DriverNames.CHROME);
-		customerdeletePOM = new CustomerDeletePOM(driver);
+		addrewardPOM = new adminEditDetailsAddRewardPOM (driver);
 		baseUrl = properties.getProperty("baseURL");
 		screenShot = new ScreenShot(driver); 
 		// open the browser 
@@ -58,17 +63,27 @@ public class deleteCustomerList {
 
 	public void tearDown() throws Exception {
 		Thread.sleep(1000);
-		driver.quit();
+		//driver.quit();
 	}
-	@Test
-	public void validLoginTest() throws InterruptedException {
-		customerdeletePOM.sendUserName("admin");
-		customerdeletePOM.sendPassword("admin@123");
-		customerdeletePOM.clickLoginBtn(); 
-		customerdeletePOM.clickOnCustomer();
-	 	screenShot.captureScreenShot("Cust1");
-	}
-
 	
+public void LoginTest() throws InterruptedException {
+		
+		//Send admin field  value 
+	addrewardPOM.sendUserName("admin");
+		
+		//Send the password field value 
+	addrewardPOM.sendPassword("admin@123");
+		
+		//Click on the Login button
+	addrewardPOM.clickLoginBtn(); 
+	
+	//Work on EditAddReward 
+	addrewardPOM.editAddReward();
+	
+	
+ 	screenShot.captureScreenShot("AddReward");
+
+			
+	}
 
 }
